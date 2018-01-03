@@ -37,7 +37,7 @@ new Vue({
     }
   }, 
   filters: {
-    reverse(items) {
+    reverse: function(items) {
       return items.reverse()
     }
   }
