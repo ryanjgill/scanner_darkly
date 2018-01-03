@@ -4,6 +4,7 @@ new Vue({
 	<div>
 		<div class="currentBarcode">{{currentBarcode}}</div>
     <div class="scannedBarcodes">
+      <button @click="this.scannedBarcodes = []">Clear</button>
       <ul>
         <li v-for="barcode in scannedBarcodesReversed">{{barcode}}</li>
       </ul>
