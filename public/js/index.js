@@ -21,7 +21,7 @@ new Vue({
 	},
 	computed: {
     scannedBarcodesReversed() {
-      return this.scannedBarcodes.reverse()
+      return this.scannedBarcodes.slice().reverse()
     }
 	},
 	created() {
