@@ -5,13 +5,13 @@ new Vue({
 		<div class="currentBarcode">{{currentBarcode}}</div>
     <div class="scannedBarcodes">
       <ul>
-        <li v-for="barcode in scannedBarcodes">{{barcode}}</li>
+        <li v-for="barcode in scannedBarcodes | reverse">{{barcode}}</li>
       </ul>
 		</div>
 	</div>
 	`,
 	data: {
-		currentBarcode: '',
+		currentBarcode: 'Awaiting Scan',
 		scannedBarcodes: []
 	},
 	computed: {
@@ -34,6 +34,11 @@ new Vue({
 			series[2].addPoint([ticks, +this.$data.radiator_temp], false, true)
 			series[3].addPoint([ticks, +this.$data.gpu_1_temp], false, true)
 			series[4].addPoint([ticks, +this.$data.gpu_2_temp], true, true)
+    }
+  }, 
+  filters: {
+    reverse(items) {
+      return items.reverse()
     }
   }
 });
