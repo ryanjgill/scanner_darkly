@@ -4,7 +4,11 @@ new Vue({
 	<div>
 		<div class="currentBarcode">{{currentBarcode}}</div>
     <div class="scannedBarcodes">
-      <button @click="this.scannedBarcodes = []">Clear</button>
+      <button
+        v-if="scannedBarcodes && scannedBarcodes.length > 0"
+        @click="clearBarcodes">
+        Clear
+      </button>
       <ul>
         <li v-for="barcode in scannedBarcodesReversed">{{barcode}}</li>
       </ul>
@@ -29,6 +33,10 @@ new Vue({
     barcodeScanned(data) {
       this.currentBarcode = data
       this.scannedBarcodes.push(data)
+    },
+    clearBarcodes() {
+      this.currentBarcode = "Awaiting Scan..."
+      this.scannedBarcodes = []
     },
     updateChart() {
       let series = this.$refs.highcharts.chart.series
