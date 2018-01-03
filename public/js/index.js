@@ -5,7 +5,7 @@ new Vue({
 		<div class="currentBarcode">{{currentBarcode}}</div>
     <div class="scannedBarcodes">
       <ul>
-        <li v-for="barcode in scannedBarcodes | reverse">{{barcode}}</li>
+        <li v-for="barcode in scannedBarcodesReversed">{{barcode}}</li>
       </ul>
 		</div>
 	</div>
@@ -15,6 +15,9 @@ new Vue({
 		scannedBarcodes: []
 	},
 	computed: {
+    scannedBarcodesReversed() {
+      return this.scannedBarcodes.reverse()
+    }
 	},
 	created() {
     this.socket = io();
@@ -34,11 +37,6 @@ new Vue({
 			series[2].addPoint([ticks, +this.$data.radiator_temp], false, true)
 			series[3].addPoint([ticks, +this.$data.gpu_1_temp], false, true)
 			series[4].addPoint([ticks, +this.$data.gpu_2_temp], true, true)
-    }
-  }, 
-  filters: {
-    reverse: function(items) {
-      return items.reverse()
     }
   }
 });
