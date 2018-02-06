@@ -45,10 +45,6 @@ io.on('connection', client => {
 // Barcode Scanner
 // Use carriage return for terminator
 const scanner = new SerialPort( '/dev/ttyACM0')
-  .catch(err => {
-    console.log('ERROR connecting to scanner on port: "/dev/ttyACM0"')
-    io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
-  })
 
 scanner.on('open', () => {
   console.log('Barcode scanner active.')
@@ -65,6 +61,7 @@ scanner.on('data', data => {
 
 scanner.on('close', () => {
   console.log('Barcode scanner unplugged.')
+  io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
 })
 
 server.listen(PORT, () => console.log(`API listening on ${serverIP}`))
