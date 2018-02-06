@@ -15,3 +15,7 @@ body {
   line-height: 1.25;
   margin: 1rem 0;
 }
+
+button:hover {
+  cursor: pointer;
+}
