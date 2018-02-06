@@ -15,9 +15,10 @@ const Request = require('request-promise')
 const five = require('johnny-five')
 const Raspi = require('raspi-io')
 const SerialPort = require('serialport')
-const board = new five.Board({
-  io: new Raspi()
-})
+// currently not using IO, only serialport
+// const board = new five.Board({
+//   io: new Raspi()
+// })
 
 app.use(bodyParser.urlencoded({
   extended: true
