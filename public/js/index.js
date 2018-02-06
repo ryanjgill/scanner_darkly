@@ -1,8 +1,9 @@
 new Vue({
 	el: '#main',
 	template: `
-	<div>
-		<div class="currentBarcode">{{currentBarcode}}</div>
+  <div>
+    <div v-if="noScannerMessage" class="noScannerMessage">{{noScannerMessage}}</div>
+		<div v-else="currentBarcode">{{currentBarcode}}</div>
     <div class="scannedBarcodes">
       <button
         v-if="scannedBarcodes && scannedBarcodes.length > 0"
@@ -16,7 +17,8 @@ new Vue({
 	</div>
 	`,
 	data: {
-		currentBarcode: 'Awaiting Scan',
+    currentBarcode: 'Awaiting Scan',
+    noScannerMessage: '',
 		scannedBarcodes: []
 	},
 	computed: {
@@ -28,6 +30,7 @@ new Vue({
     this.socket = io();
 
     this.socket.on('barcode-scanned', this.barcodeScanned)
+    this.socket.on('scanner-not-found', this.scannerNotFound)
   },
   methods: {
     barcodeScanned(data) {
@@ -37,6 +40,10 @@ new Vue({
     clearBarcodes() {
       this.currentBarcode = "Awaiting Scan..."
       this.scannedBarcodes = []
+    },
+    scannerNotFound(data) {
+      this.noScannerMessage = "Scanner not found."
+      console.log(`Scanner missing on port: ${data.port}`)
     }
   }
 });

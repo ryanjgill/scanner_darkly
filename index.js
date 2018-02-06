@@ -44,14 +44,18 @@ io.on('connection', client => {
 
 // Barcode Scanner
 // Use carriage return for terminator
-const port = new SerialPort( '/dev/ttyACM0')
+const scanner = new SerialPort( '/dev/ttyACM0')
+  .catch(err => {
+    console.log('ERROR connecting to scanner on port: "/dev/ttyACM0"')
+    io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
+  })
 
-port.on('open', () => {
+scanner.on('open', () => {
   console.log('Barcode scanner active.')
   io.sockets.emit('scanner-detected', 'Barcode scanner active.')
 })
 
-port.on('data', data => {
+scanner.on('data', data => {
   let barcode = data.toString().trim()
 
   // emit to client for display
@@ -59,7 +63,7 @@ port.on('data', data => {
   io.sockets.emit('barcode-scanned', barcode)
 })
 
-port.on('close', () => {
+scanner.on('close', () => {
   console.log('Barcode scanner unplugged.')
 })
 
