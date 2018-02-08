@@ -29,7 +29,7 @@ new Vue({
 
       // Request from localhost with id
       let collinIp = '128.157.15.207'
-      axios.get(`http://${collinIp}:3000/api/component/${data}`)
+      axios.get(`http://localhost:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
           self.jsonPayload = JSON.stringify(response.data, null, 2)
