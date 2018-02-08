@@ -3,28 +3,17 @@ new Vue({
 	template: `
   <div>
     <div v-if="noScannerMessage" class="noScannerMessage">{{noScannerMessage}}</div>
-		<div v-else class="currentBarcode"><pre>{{currentBarcode}}</pre></div>
-    <div class="scannedBarcodes">
-      <button
-        v-if="scannedBarcodes && scannedBarcodes.length > 0"
-        @click="clearBarcodes">
-        Clear
-      </button>
-      <ul>
-        <li v-for="barcode in scannedBarcodesReversed">{{barcode}}</li>
-      </ul>
+		<div v-else class="currentBarcode">{{currentBarcode}}</div>
+    <div>
+      <pre v-if="jsonPayload">{{jsonPayload}}</pre>
 		</div>
 	</div>
 	`,
 	data: {
     currentBarcode: 'Awaiting Scan',
-    noScannerMessage: '',
-		scannedBarcodes: []
+    jsonPayload: ''
 	},
 	computed: {
-    scannedBarcodesReversed() {
-      return this.scannedBarcodes.slice().reverse()
-    }
 	},
 	created() {
     this.socket = io();
@@ -43,16 +32,12 @@ new Vue({
       axios.get(`http://${collinIp}:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
-          self.currentBarcode = JSON.stringify(data, null, 2)
-          self.scannedBarcodes.push(data)
+          self.jsonPayload = JSON.stringify(response, null, 2)
+          self.currentBarcode = data
         })
         .catch(function (error) {
           console.log(error);
         });
-    },
-    clearBarcodes() {
-      this.currentBarcode = "Awaiting Scan..."
-      this.scannedBarcodes = []
     },
     scannerNotFound(data) {
       this.noScannerMessage = "Scanner not found."
