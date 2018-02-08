@@ -39,7 +39,7 @@ new Vue({
 
       // Request from localhost with id
       let collinIp = '128.157.15.207'
-      axios.get(`http://${collinIP}:3000/api/component/${data}`)
+      axios.get(`http://${collinIp}:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
           this.currentBarcode = JSON.stringify(data, null, 2)
