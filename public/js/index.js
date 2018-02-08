@@ -34,6 +34,7 @@ new Vue({
   },
   methods: {
     barcodeScanned(data) {
+      var self = this;
       // this.currentBarcode = data
       // this.scannedBarcodes.push(data)
 
@@ -42,8 +43,8 @@ new Vue({
       axios.get(`http://${collinIp}:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
-          this.currentBarcode = JSON.stringify(data, null, 2)
-          this.scannedBarcodes.push(data)
+          self.currentBarcode = JSON.stringify(data, null, 2)
+          self.scannedBarcodes.push(data)
         })
         .catch(function (error) {
           console.log(error);
