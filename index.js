@@ -53,6 +53,16 @@ scanner.on('open', () => {
 
 scanner.on('data', data => {
   let barcode = data.toString().trim()
+  let name = 'gill'
+  let baseURL = `${name}.local:3000/api`
+
+  //http://gillmbp.local:3000/api/search/crews
+  //Fetch based on barcode
+  // Request(`${baseURL}/search/crews`)
+  //   .then(data => {
+  //     io.sockets.emit('barcode-scanned', data)
+  //   })
+  //   .catch(err => console.error(err))
 
   // emit to client for display
   console.log(barcode)

@@ -34,8 +34,20 @@ new Vue({
   },
   methods: {
     barcodeScanned(data) {
-      this.currentBarcode = data
-      this.scannedBarcodes.push(data)
+      // this.currentBarcode = data
+      // this.scannedBarcodes.push(data)
+
+      // Request from localhost with id
+      let collinIp = '128.157.15.207'
+      axios.get(`http://${collinIP}:3000/api/component/${data}`)
+        .then(function (response) {
+          console.log(response);
+          this.currentBarcode = data
+          this.scannedBarcodes.push(data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     clearBarcodes() {
       this.currentBarcode = "Awaiting Scan..."
