@@ -3,7 +3,7 @@ new Vue({
 	template: `
   <div>
     <div v-if="noScannerMessage" class="noScannerMessage">{{noScannerMessage}}</div>
-		<div v-else class="currentBarcode">{{currentBarcode}}</div>
+		<div v-else class="currentBarcode"><pre>{{currentBarcode}}</pre></div>
     <div class="scannedBarcodes">
       <button
         v-if="scannedBarcodes && scannedBarcodes.length > 0"
@@ -42,7 +42,7 @@ new Vue({
       axios.get(`http://${collinIP}:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
-          this.currentBarcode = data
+          this.currentBarcode = JSON.stringify(data, null, 2)
           this.scannedBarcodes.push(data)
         })
         .catch(function (error) {
