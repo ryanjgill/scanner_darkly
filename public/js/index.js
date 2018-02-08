@@ -32,7 +32,7 @@ new Vue({
       axios.get(`http://${collinIp}:3000/api/component/${data}`)
         .then(function (response) {
           console.log(response);
-          self.jsonPayload = JSON.stringify(response, null, 2)
+          self.jsonPayload = JSON.stringify(response.data, null, 2)
           self.currentBarcode = data
         })
         .catch(function (error) {
