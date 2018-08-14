@@ -56,7 +56,8 @@ scanner.on('open', () => {
 
 scanner.on('data', data => {
   let barcode = data.toString().trim()
-  let baseURL = `localhost:3000/api/inventory`
+  let hostname = 'ryans-mac-pro.lan'
+  let baseURL = `${hostname}:3000/inventory`
   let payload = {
     barcode,
     scanner: SCANNER
