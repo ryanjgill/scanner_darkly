@@ -10,17 +10,14 @@ const ip = require('ip')
 const PORT = 3000
 const serverIP = `${ip.address()}:${PORT}`
 const Request = require('request-promise')
-const chalk = require('chalk')
 
 // Pi stuffs
-const scanner = 'Cyclops'
 const five = require('johnny-five')
 const Raspi = require('raspi-io')
 const SerialPort = require('serialport')
 // currently not using IO, only serialport
 // const board = new five.Board({
-//   io: new Raspi(),
-//   repl: false
+//   io: new Raspi()
 // })
 
 app.use(bodyParser.urlencoded({
@@ -56,27 +53,16 @@ scanner.on('open', () => {
 
 scanner.on('data', data => {
   let barcode = data.toString().trim()
-  let baseURL = `localhost:3000/api/inventory`
-  let payload = {
-    barcode,
-    scanner
-  }
-  let options = {
-    method: 'POST',
-    uri: `http://${baseURL}`,
-    body: payload,
-    json: true
-  }
+  let name = 'gill'
+  let baseURL = `${name}.local:3000/api`
 
-  Request(options)
-    .then(function (parsedBody) {
-        // flash green led
-        console.log(chalk.green('Scan saved.'))
-    })
-    .catch(function (err) {
-        // flash red led
-        console.log(chalk.red('Failed to save.'))
-    })
+  //http://gillmbp.local:3000/api/search/crews
+  //Fetch based on barcode
+  // Request(`${baseURL}/search/crews`)
+  //   .then(data => {
+  //     io.sockets.emit('barcode-scanned', data)
+  //   })
+  //   .catch(err => console.error(err))
 
   // emit to client for display
   console.log(barcode)
@@ -84,8 +70,8 @@ scanner.on('data', data => {
 })
 
 scanner.on('close', () => {
-  console.log(chalk.yellow('Barcode scanner unplugged.'))
+  console.log('Barcode scanner unplugged.')
   io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
 })
 
-server.listen(PORT, () => console.log(chalkd.green(`API listening on ${serverIP}`)))
+server.listen(PORT, () => console.log(`API listening on ${serverIP}`))
