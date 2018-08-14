@@ -9,11 +9,12 @@ new Vue({
 		</div>
 	</div>
 	`,
-	data: {
-    currentBarcode: 'Awaiting Scan',
-    jsonPayload: ''
-	},
-	computed: {
+	data() {
+    return {
+      currentBarcode: 'Awaiting Scan',
+      jsonPayload: '',
+      noScannerMessage: null
+    }
 	},
 	created() {
     this.socket = io();
@@ -24,20 +25,8 @@ new Vue({
   methods: {
     barcodeScanned(data) {
       var self = this;
-      // this.currentBarcode = data
-      // this.scannedBarcodes.push(data)
-
-      // Request from localhost with id
-      let collinIp = '128.157.15.207'
-      axios.get(`http://localhost:3000/api/component/${data}`)
-        .then(function (response) {
-          console.log(response);
-          self.jsonPayload = JSON.stringify(response.data, null, 2)
-          self.currentBarcode = data
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      this.currentBarcode = data
+      this.scannedBarcodes.push(data)
     },
     scannerNotFound(data) {
       this.noScannerMessage = "Scanner not found."
