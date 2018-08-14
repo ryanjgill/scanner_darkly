@@ -18,7 +18,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "sudo /home/pi/.nvm/versions/node/v8.9.3/bin/node index.js",
+    "start": "sudo /usr/local/bin/node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

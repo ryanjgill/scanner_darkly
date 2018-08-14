@@ -88,4 +88,4 @@ scanner.on('close', () => {
   io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
 })
 
-server.listen(PORT, () => console.log(chalkd.green(`API listening on ${serverIP}`)))
+server.listen(PORT, () => console.log(chalk.green(`API listening on ${serverIP}`)))
