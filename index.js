@@ -13,7 +13,7 @@ const Request = require('request-promise')
 const chalk = require('chalk')
 
 // Pi stuffs
-const scanner = 'Cyclops'
+const SCANNER = 'Cyclops'
 const five = require('johnny-five')
 const Raspi = require('raspi-io')
 const SerialPort = require('serialport')
@@ -59,7 +59,7 @@ scanner.on('data', data => {
   let baseURL = `localhost:3000/api/inventory`
   let payload = {
     barcode,
-    scanner
+    scanner: SCANNER
   }
   let options = {
     method: 'POST',
