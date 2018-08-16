@@ -11,6 +11,10 @@ const PORT = 3000
 const serverIP = `${ip.address()}:${PORT}`
 const Request = require('request-promise')
 const chalk = require('chalk')
+const publicIp = require('public-ip')
+const iplocation = require('iplocation')
+const macaddress = require('macaddress')
+let LOCATION_INFO = {}
 
 // Pi stuffs
 const SCANNER = 'Cyclops'
@@ -45,6 +49,19 @@ io.on('connection', client => {
   })
 })
 
+publicIp
+  .v4()
+  .then(iplocation)
+  .then(res => {
+    // get mac adress
+    macaddress.one((err, mac) => {
+      if (err) { console.error(err)}
+
+      LOCATION_INFO = Object.assign({}, res, {mac})
+    })   
+  })
+  .catch(err => console.error(err))
+
 // Barcode Scanner
 // Use carriage return for terminator
 const scanner = new SerialPort( '/dev/ttyACM0')
@@ -60,7 +77,8 @@ scanner.on('data', data => {
   let baseURL = `${hostname}:3000/inventory`
   let payload = {
     barcode,
-    scanner: SCANNER
+    scanner: SCANNER,
+    locationInfo: LOCATION_INFO
   }
   let options = {
     method: 'POST',
