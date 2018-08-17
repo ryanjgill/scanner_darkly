@@ -122,14 +122,20 @@ board.on('ready', () => {
         // flash green led
         redLed.off()
         greenLed.blink(500)
-        setTimeout(() => greenLed.off(), 2000)
+        setTimeout(() => {
+          greenLed.stop()
+          greenLed.off()
+        }, 2000)
         console.log(chalk.green('Scan saved.'))
       })
       .catch(function (err) {
         // flash red led
         greenLed.off()
         redLed.blink(500)
-        setTimeout(() => redLed.off(), 2000)
+        setTimeout(() => {
+          redLed.stop()
+          redLed.off()
+        }, 2000)
         console.log(chalk.red('Failed to save.'))
       })
 
