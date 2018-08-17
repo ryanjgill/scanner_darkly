@@ -86,6 +86,7 @@ board.on('ready', () => {
   const scanner = new SerialPort( '/dev/ttyACM0')
 
   scanner.on('open', () => {
+    blueLed.stop()
     blueLed.blink()
     console.log('Barcode scanner active.')
     io.sockets.emit('scanner-detected', 'Barcode scanner active.')
@@ -100,8 +101,12 @@ board.on('ready', () => {
     if (userId) {
       CURRENT_USER = userId
       // blink blue led?
+      blueLed.stop()
       blueLed.blink()
-      setTimeout(() => blueLed.on(), 2000)
+      setTimeout(() => {
+        blueLed.stop()
+        blueLed.on()
+      }, 2000)
       console.log(chalk.blue(`New User: ${userId}`))
     }
 
