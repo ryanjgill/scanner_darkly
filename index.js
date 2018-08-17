@@ -154,7 +154,7 @@ board.on('ready', () => {
     io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
   })
 
-  this.on("exit", () => {
+  board.on("exit", () => {
     blueLed.stop()
     blueLed.off()
     redLed.stop()
