@@ -147,20 +147,20 @@ board.on('ready', () => {
     // emit to client for display
     console.log(barcode)
     io.sockets.emit('barcode-scanned', barcode)
-
-    this.on("exit", () => {
-      blueLed.stop()
-      blueLed.off()
-      redLed.stop()
-      redLed.off()
-      greenLed.stop()
-      greenLed.off()
-    })
   })
 
   scanner.on('close', () => {
     console.log(chalk.yellow('Barcode scanner unplugged.'))
     io.sockets.emit('scanner-not-found', {port: '/dev/ttyACM0'})
+  })
+
+  this.on("exit", () => {
+    blueLed.stop()
+    blueLed.off()
+    redLed.stop()
+    redLed.off()
+    greenLed.stop()
+    greenLed.off()
   })
 })
 
