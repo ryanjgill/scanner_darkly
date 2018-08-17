@@ -147,6 +147,15 @@ board.on('ready', () => {
     // emit to client for display
     console.log(barcode)
     io.sockets.emit('barcode-scanned', barcode)
+
+    this.on("exit", () => {
+      blueLed.stop()
+      blueLed.off()
+      redLed.stop()
+      redLed.off()
+      greenLed.stop()
+      greenLed.off()
+    })
   })
 
   scanner.on('close', () => {
