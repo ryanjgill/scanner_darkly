@@ -69,14 +69,6 @@ publicIp
   })
   .catch(err => console.error(err))
 
-
-let blinkLed = function(led) {
-  led.blink(250)
-  setTimeout(() => {
-    led.off()
-  })
-}
-
 board.on('ready', () => {
   let blueLed = new five.Led("P1-11")
   let redLed = new five.Led("P1-11")
@@ -129,13 +121,15 @@ board.on('ready', () => {
       .then(function (parsedBody) {
         // flash green led
         redLed.off()
-        blinkLed(greenLed)
+        greenLed.blink(500)
+        setTimeout(() => greenLed.off(), 2000)
         console.log(chalk.green('Scan saved.'))
       })
       .catch(function (err) {
         // flash red led
         greenLed.off()
-        blinkLed(redLed)
+        redLed.blink(500)
+        setTimeout(() => redLed.off(), 2000)
         console.log(chalk.red('Failed to save.'))
       })
 
