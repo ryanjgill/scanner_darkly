@@ -70,8 +70,8 @@ publicIp
   .catch(err => console.error(err))
 
 
-let pulseLed = function(led) {
-  led.pulse()
+let blinkLed = function(led) {
+  led.blink(250)
   setTimeout(() => {
     led.off()
   })
@@ -107,8 +107,8 @@ board.on('ready', () => {
     // set current user
     if (userId) {
       CURRENT_USER = userId
-      // pulse blue led?
-      blueLed.pulse()
+      // blink blue led?
+      blueLed.blink()
       setTimeout(() => blueLed.on(), 2000)
       console.log(chalk.blue(`New User: ${userId}`))
     }
@@ -129,13 +129,13 @@ board.on('ready', () => {
       .then(function (parsedBody) {
         // flash green led
         redLed.off()
-        pulseLed(greenLed)
+        blinkLed(greenLed)
         console.log(chalk.green('Scan saved.'))
       })
       .catch(function (err) {
         // flash red led
         greenLed.off()
-        pulseLed(redLed)
+        blinkLed(redLed)
         console.log(chalk.red('Failed to save.'))
       })
 
