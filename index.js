@@ -71,8 +71,8 @@ publicIp
 
 board.on('ready', () => {
   let blueLed = new five.Led("P1-11")
-  let redLed = new five.Led("P1-11")
-  let greenLed = new five.Led("P1-11")
+  let redLed = new five.Led("P1-13")
+  let greenLed = new five.Led("P1-15")
 
   blueLed.off()
   redLed.off()
